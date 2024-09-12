@@ -42,20 +42,10 @@
             padding: 15% 25% 0 25%;
         }
 
+     
         .iconePetitPlat{
-            font-size: 50px;
-            position: absolute;
-            top: -170px;
-            display: flex;
-             left: -250px;   
-            text-align: center;
-            font-family: 'Anton', sans-serif;
-            z-index: 10;
-            color:white;
-            font-size: 32px;
-            font-weight: 400;
-            padding: 15% 25% 0 25%;
-        }
+            padding: 8px 0px 0px 5px;
+       }
         .search-wrapper {
             position: relative;
             width: 60%;
