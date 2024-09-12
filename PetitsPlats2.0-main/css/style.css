@@ -1,0 +1,498 @@
+        body {
+            padding: 0;
+            margin: 0;
+            background: #EDEDED;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .imageHeader {
+            position: absolute;
+            top: 0;
+            right: -1px;
+            height: 600px;
+            width: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        h1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Anton', sans-serif;
+            z-index: 10;
+            color: #FFD15B;
+            font-size: 44px;
+            font-weight: 400;
+            padding: 15% 25% 0 25%;
+        }
+
+        .title-petit-plat {
+            position: absolute;
+            top: -170px;
+            display: flex;
+             left: -250px;   
+            text-align: center;
+            font-family: 'Anton', sans-serif;
+            z-index: 10;
+            color:white;
+            font-size: 32px;
+            font-weight: 400;
+            padding: 15% 25% 0 25%;
+        }
+
+        .iconePetitPlat{
+            font-size: 50px;
+            position: absolute;
+            top: -170px;
+            display: flex;
+             left: -250px;   
+            text-align: center;
+            font-family: 'Anton', sans-serif;
+            z-index: 10;
+            color:white;
+            font-size: 32px;
+            font-weight: 400;
+            padding: 15% 25% 0 25%;
+        }
+        .search-wrapper {
+            position: relative;
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 70px;
+            box-sizing: border-box;
+            padding: 12px 20px 12px 40px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+        }
+
+        .search-input::placeholder {
+            color: #ccc;
+            font-size: 20px;
+        }
+
+        .search-icon {
+            display: flex;
+            padding-top: 15px;
+            padding-left: 20px;
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            height: 45px;
+            width: 50px;
+            transform: translateY(-50%);
+            font-size: 30px;
+            color: white;
+            background: black;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .search-icon:hover {
+            background: #FFD15B;
+            color: black;
+        }
+
+        .remove-icon {
+            position: absolute;
+            cursor: pointer;
+            color: gray;
+            right: 50px;
+            top: 35%;
+            height: 45px;
+            width: 50px;
+            font-size: 25px;
+            font-weight: lighter;
+        }
+
+        .remove-icon-option {
+            cursor: pointer;
+        }
+
+        .select-box {
+            display: flex;
+            justify-content: space-between;
+            padding: 13% 40% 0% 5%;
+            box-sizing: border-box;
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box-ingredients,
+        .search-box-Appareil,
+        .search-box-ustensils {
+            display: none;
+            background: white;
+            width: 200px;
+            padding: 10px;
+            box-sizing: border-box;
+           
+        }
+
+        .active .search-box-ingredients,
+        .active .search-box-Appareil,
+        .active .search-box-ustensils {
+            display: block;
+            position: relative;
+            z-index: 3;
+        }
+
+        .option-container {
+            position: absolute;
+            z-index: 3;
+            background-color: white;
+            width: 200px;
+            border-radius: 8px;
+            overflow-y: scroll;
+            max-height: 0;
+            transition: all 0.4s;
+            
+        }
+
+        /* Chrome, Safari, Edge, Opera */
+        .option-container::-webkit-scrollbar {
+            width: 0;
+        }
+
+        /* Firefox */
+        .option-container {
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            scrollbar-color: transparent transparent;
+        }
+
+        .searchItem {
+            margin-bottom: 10%;
+        }
+
+        .option,
+        .selectedingredients,
+        .selectedAppareil,
+        .selectedustensils {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .radio {
+            display: none;
+        }
+
+        .selectedingredients,
+        .selectedAppareil,
+        .selectedustensils {
+            position: relative;
+            padding: 10px;
+            background: white;
+            order: 0;
+            border-radius: 10px;
+            width: 200px;
+            box-sizing: border-box;
+        }
+
+        .selectedingredients::after,
+        .selectedAppareil::after,
+        .selectedustensils::after {
+            content: '\f106';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 700;
+            position: absolute;
+            right: 10px;
+            color: black;
+            transition: transform 0.1s;
+        }
+
+        .option-container.active {
+            opacity: 1;
+            max-height: 240px;
+        }
+
+        .active .selectedingredients,
+        .active .selectedAppareil,
+        .active .selectedustensils {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .selectedingredients::after,
+        .selectedAppareil::after,
+        .selectedustensils::after {
+            transform: rotate(180deg);
+        }
+
+        .active .selectedingredients::after,
+        .active .selectedAppareil::after,
+        .active .selectedustensils::after {
+            transform: rotate(0deg);
+        }
+
+        .select-box .option:hover {
+            background: #FFD15B;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .select-box input {
+            width: 90%;
+            height: 16px;
+            padding: 10px;
+            position: absolute;
+            border: none;
+            font-size: 16px;
+            outline: none;
+            border: solid 1px grey;
+            border-radius: 5px;
+        }
+
+        .searchItem {
+            position: relative;
+            padding-bottom: 5%;
+            background: white;
+        }
+
+        .style-search {
+            position: relative;
+            top: 10px;
+            font-size: 16px;
+            left: 160px;
+            z-index: 5;
+            color: gray;
+            cursor: pointer;
+        }
+        .removeItem{
+            position: absolute;
+            top: 10px;
+            font-size: 16px;
+            left: 140px;
+            z-index: 5;
+            color: gray;
+            cursor: pointer;
+        }
+
+        .removeOption{
+            position : absolute;
+              left : 160px;
+            color: white;               
+            background-color: black;    
+            border-radius: 50%;          
+            padding: 5px;                
+            margin-left: 10px;          
+            cursor: pointer;             
+               
+
+        }
+        .option.selected {
+            background-color: #FFD15B;
+             }
+
+        .option .removeOption {
+           
+            color: white;
+            background-color: black;
+            border-radius: 60%;
+            padding: 4px 6px 4px 5px;
+            margin: 0px 5px 10% 0px;
+            
+            font-size: 10px;;
+            cursor: pointer;
+            display: none;   
+        }
+
+        
+        .option.selected .removeOption {
+            display: inline-block;
+            }
+        
+        .selected-item .removeOption {
+        color: black;  
+        background-color: transparent;
+        padding: 0;  
+        margin-left: 5px;         }
+
+
+        .active {
+            opacity: 1;
+            max-height: 240px;
+        }
+
+        .option-container.active {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .cardPlat {
+            position: absolute;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 10px; 
+            width: 100%; 
+        }
+
+        .recipe {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 360px;
+            height: 650px;
+            margin: 3%;
+            
+        }
+
+        .recipe img {
+            width: 100%;
+            height: 30%;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            object-fit: cover;
+        }
+
+        .recipe-time {
+            position: relative;
+            top: -27%;
+            left: 77%;
+            font-size: 1rem;
+            color: #666;
+            padding: 2% 4% 2% 2%;
+            border-radius: 30px;
+            background-color: #FFD15B;
+            padding-left: 1rem;
+        }
+
+        .recipe h2 {
+            font-size: 1.5rem;
+            margin: 0.5rem 0 ;
+            padding-left: 1rem;
+            font-family: 'Anton', sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+        }
+
+        .recipe h3 {
+            font-size: 1.2rem;
+             margin: 0%;
+            color: #7A7A7A;
+            font-weight: 700;
+            font-size: 14px;
+            padding-left: 1rem;
+            padding-top: 1.5rem;
+        }
+
+        .recipe p {
+            display: flex;
+            font-size: 1rem;
+            color: #333;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: justify;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+
+        .recipe ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+
+        .recipe li {
+            font-size: 1rem;
+            color: #333;
+            padding-left: 1rem;
+        }
+
+        .cardIngredient {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+
+        }
+        .ingredient{
+            width: 40%;
+            margin-bottom: 0%;
+            padding: 0%;
+                          
+        }
+
+        span.ingredientName {
+             
+            display: flex;
+            font-weight: 500;
+            background-color: white;
+            color: #1B1B1B;
+            font-size: 14px;
+            font-family: 'Manrope', sans-serif;
+            margin: 0%;
+            
+        }
+
+        .quantityText {
+            background-color: white;
+            color: #7A7A7A;
+            font-weight: 400;
+            font-size: 13px;
+            font-family: 'Manrope', sans-serif;
+            margin: 0%;
+        }
+
+        .selected-option-display {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            margin-top: 2rem;
+            margin-bottom: 5%;
+            width: 180px;
+            border-radius: 10px;
+            color: #000000;
+            font-size: 20px;
+        }
+
+        .selected-item {
+            display: flex;
+            align-items: center;
+           
+            background: #FFD15B;
+            padding: 5px 5px 5px 1px;
+            margin: 3% 1%;
+            border-radius: 5px;
+            color: #000;
+            font-size: 16px;
+            width: 180px;
+            position: relative;
+        }
+
+        span.selected-text {
+            flex: 1;
+            padding: 0 1px;
+            margin: 5px;
+            
+        }
+
+        .close-icon {
+            position: absolute;
+            right: 10px;
+            color: black;
+            cursor: pointer;
+        }
+
+        .counter {
+            position: absolute;
+            top: 640px;
+            right: 5%;
+            font-size: 21px;
+            font-weight: 400;
+            font-family: 'Anton';
+        }
+        /* Styliser les options sélectionnées */
+    
+    
+       

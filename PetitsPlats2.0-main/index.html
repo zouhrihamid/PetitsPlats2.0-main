@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/style.css" rel="stylesheet" type="text/css" />
+    
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+   <link rel="stylesheet" href="styles.css">
+    <title>Les Petits Plats</title>
+</head>
+<body>
+    <header>
+        <div>
+             <img src="assets/imageHeader.jpg" class="imageHeader" alt="image plat" aria-label="image d'accueil"/> 
+            <h1>CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET DÉLICIEUSES</h1>
+            <h2 class="title-petit-plat"> LES PETITS PLATS</h2>
+            <i class="fa-solid fa-circle-dot  iconePetitPlat"></i>
+        </div>
+        <div class="search-wrapper">
+            <label for="search"></label>
+            <input type="text" id="search" class="search-input" name="search" placeholder="Recherche une recette, un ingrédient" />
+            <i class="fa fa-search search-icon" aria-hidden="true"></i>
+            <i class="fa fa-times remove-icon " aria-hidden="true"></i>
+        </div>
+    </header>
+    <main id="main">
+        <div class="select-box"></div>
+        <div class="global-selected-option-display"></div>
+        <div class="counter"></div>
+        
+        <div class="cardPlat"></div>
+    </main>
+    <script type="module" src="scripts/indexfor.js"></script>
+</body>
+</html>
