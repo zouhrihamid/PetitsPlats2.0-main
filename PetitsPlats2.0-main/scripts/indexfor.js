@@ -270,7 +270,8 @@ function createSelectBox(className, labelText, items) {
     removeSearchItem.style.display = 'none';
 
     inputSearchBox.addEventListener("input", () => {
-        const searchValue = inputSearchBox.value.trim();
+        const searchValue = inputSearchBox.value.trim().toLocaleLowerCase();
+        filterOptions(searchValue, optionContainer);
         removeSearchItem.style.display = searchValue.length > 0 ? 'flex' : 'none';
     });
 
