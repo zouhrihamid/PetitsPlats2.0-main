@@ -21,30 +21,48 @@ const globalSelectedItems = {
 
 //********************  Fonction pour désactiver tous les menus déroulants ouverts *********************************/
 function deactivateAllDropdowns(container) {
+    // Sélectionner tous les conteneurs de menus déroulants
     const allContainers = document.querySelectorAll('.select-box > div');
-    allContainers.forEach(cont => {
+
+    // Itérer sur tous les conteneurs avec une boucle for
+    for (let i = 0; i < allContainers.length; i++) {
+        const cont = allContainers[i];
+        
+        // Si le conteneur n'est pas celui passé en argument
         if (cont !== container) {
             cont.classList.remove("active");
+            
+            // Désactiver la boîte d'options si elle existe
             const options = cont.querySelector(".option-container");
             if (options) {
                 options.classList.remove("active");
             }
+
+            // Désactiver la boîte de recherche si elle existe
             const searchBox = cont.querySelector(`[class*='search-box-']`);
             if (searchBox) {
                 searchBox.classList.remove("active");
             }
         }
-    });
+    }
 }
+
 
 
 //******************* Fonction pour mettre à jour l'affichage des tags sélectionnés  ***************************/
 function updateSelectedDisplay() {
-   
     globalSelectedOptionContainer.innerHTML = ''; // Effacer les éléments existants
 
-    Object.keys(globalSelectedItems).forEach(category => {
-        globalSelectedItems[category].forEach(item => {
+    // Itérer sur les catégories de globalSelectedItems
+    const categories = Object.keys(globalSelectedItems);
+    for (let i = 0; i < categories.length; i++) {
+        const category = categories[i];
+        const items = Array.from(globalSelectedItems[category]);
+
+        // Itérer sur les éléments de chaque catégorie
+        for (let j = 0; j < items.length; j++) {
+            const item = items[j];
+
             const selectedItem = document.createElement("div");
             selectedItem.classList.add("selected-item");
 
@@ -58,39 +76,54 @@ function updateSelectedDisplay() {
             selectedItem.appendChild(removetag);
 
             removetag.addEventListener("click", () => {
-                console.log(`Removing item: ${item}`); // Debug
-                Object.keys(globalSelectedItems).forEach(cat => {
+               
+                // Supprimer l'élément de chaque catégorie dans globalSelectedItems
+                for (let k = 0; k < categories.length; k++) {
+                    const cat = categories[k];
                     globalSelectedItems[cat].delete(item);
-                });
+                }
                 updateSelectedDisplay();
                 updateOptionsAndFilter();
             });
 
             globalSelectedOptionContainer.appendChild(selectedItem);
-        });
-    });
+        }
+    }
 
-    globalSelectedOptionContainer.style.display = Object.values(globalSelectedItems).some(set => set.size > 0) ? "flex" : "none";
+    // Mettre à jour l'affichage du conteneur globalSelectedOptionContainer
+    let hasSelectedItems = false;
+    const selectedItemsSets = Object.values(globalSelectedItems);
+    for (let i = 0; i < selectedItemsSets.length; i++) {
+        if (selectedItemsSets[i].size > 0) {
+            hasSelectedItems = true;
+            break;
+        }
+    }
+    globalSelectedOptionContainer.style.display = hasSelectedItems ? "flex" : "none";
 }
 
 
 
-//************************************  Fonction pour mettre à jour les options affichées dans les menus déroulants ************/
+
+
+//************************************  Fonction pour mettre à jour les options affichées dans les menus déroulants   boucle for ************/
 function updateOptions(items, optionContainer, category) {
     // Vérifier si la catégorie existe dans globalSelectedItems
     if (!globalSelectedItems[category]) {
-        
         return;
     }
+
     // Nettoyer le conteneur d'options avant de le remplir
     optionContainer.innerHTML = '';
 
     // Assurer que les items sont en minuscules et uniques
     const uniqueItems = [...new Set(items.map(item => item.toLowerCase()))];
-     uniqueItems.sort();
+    uniqueItems.sort();
 
-    // Ajout de chaque option dans le conteneur
-    uniqueItems.forEach(item => {
+    // Utilisation de la boucle 'for' pour itérer sur les items uniques
+    for (let i = 0; i < uniqueItems.length; i++) {
+        const item = uniqueItems[i];
+
         const divOption = document.createElement("div");
         divOption.classList.add("option");
 
@@ -141,11 +174,9 @@ function updateOptions(items, optionContainer, category) {
             }
         });
 
-      
+        // Ajouter l'option au conteneur
         optionContainer.appendChild(divOption);
-    });
-
-  
+    }
 }
 
 //***************************** Fonction pour mettre à jour les options et filtrer les recettes  **************************/
@@ -166,13 +197,24 @@ function updateOptionsAndFilter() {
     filterRecipes();
 }
 
-//*****************************  Fonction pour filtrer les options selon le texte entré ************************************/
+
+
+//*****************************  Fonction pour filtrer les options selon le texte entré   avec boucle for***********************************/
 function filterOptions(searchValue, container) {
     const options = container.querySelectorAll(".option");
-    options.forEach(option => {
+
+    // Utilisation de la boucle 'for' pour itérer sur les options
+    for (let i = 0; i < options.length; i++) {
+        const option = options[i];
         const label = option.querySelector("label").innerText.toLowerCase();
-        option.style.display = label.includes(searchValue) ? "block" : "none";
-    });
+
+        // Affiche ou cache l'option selon si elle contient la valeur recherchée
+        if (label.includes(searchValue)) {
+            option.style.display = "block";  // Afficher l'option si elle correspond
+        } else {
+            option.style.display = "none";   // Cacher l'option si elle ne correspond pas
+        }
+    }
 }
 
 
@@ -228,7 +270,8 @@ function createSelectBox(className, labelText, items) {
     removeSearchItem.style.display = 'none';
 
     inputSearchBox.addEventListener("input", () => {
-        const searchValue = inputSearchBox.value.trim();
+        const searchValue = inputSearchBox.value.trim().toLocaleLowerCase();
+        filterOptions(searchValue, optionContainer);
         removeSearchItem.style.display = searchValue.length > 0 ? 'flex' : 'none';
     });
 
@@ -384,17 +427,24 @@ function updateSelectBoxes(filteredRecipes) {
     updateSelectBox(".ustensils", filteredUtensils);
 }
 
-// ******************************** Fonction pour mettre à jour les options visibles dans les boîtes de sélection ****************************/
+
+//  ******************************************* Fonction pour mettre à jour les options visibles dans les boîtes de sélection  avec for  ***********/
 function updateSelectBox(className, filteredItems) {
     const options = document.querySelectorAll(`${className} .option`);
-    options.forEach(option => {
+    
+    // Utilisation de la boucle 'for' pour itérer sur les options
+    for (let i = 0; i < options.length; i++) {
+        const option = options[i];
         const label = option.querySelector("label").innerText.toLowerCase();
-        option.style.display = filteredItems.has(label) ? "block" : "none";
-    });
+        
+        // Vérifie si l'élément est présent dans les filteredItems
+        if (filteredItems.has(label)) {
+            option.style.display = "block";  // Affiche l'option si elle correspond
+        } else {
+            option.style.display = "none";   // Cache l'option si elle ne correspond pas
+        }
+    }
 }
-
-
-
 
 
 //******************************** Fonction pour mettre à jour le compteur des recettes trouvées **********************************/
