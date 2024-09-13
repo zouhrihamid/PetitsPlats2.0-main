@@ -50,7 +50,8 @@ function updateSelectedDisplay() {
 
             const selectedText = document.createElement("span");
             selectedText.classList.add("selected-text");
-            selectedText.innerText = item;
+            selectedText.innerText = item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
+
             selectedItem.appendChild(selectedText);
 
             const removetag = document.createElement("i");
