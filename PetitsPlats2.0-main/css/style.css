@@ -316,6 +316,11 @@
             border-top-right-radius: 0;
         }
 
+        .global-selected-option-display{
+         margin-left: 54px;
+
+        }
+
         .cardPlat {
             position: absolute;
             display: flex;

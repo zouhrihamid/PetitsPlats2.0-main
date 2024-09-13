@@ -102,7 +102,7 @@ function updateOptions(items, optionContainer, category) {
 
         const label = document.createElement("label");
         label.setAttribute("for", item);
-        label.innerText = item.charAt(0).toUpperCase() + item.slice(1); // Afficher avec majuscule initiale
+        label.innerText = item.charAt(0).toUpperCase() + item.slice(1); // Afficher avec majuscule  premier lettre
 
         divOption.appendChild(input);
         divOption.appendChild(label);
