@@ -238,6 +238,9 @@
             border: solid 1px grey;
             border-radius: 5px;
         }
+        .global-selected-option-display{
+            margin-left: 54px;
+        }
 
         .searchItem {
             position: relative;
