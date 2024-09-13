@@ -305,6 +305,7 @@ selectBoxContainer.appendChild(ustensilSelectBox);
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    updateOptionsAndFilter();
     filterRecipes(); 
    
     removeIcon.addEventListener("click", clearSearchInput);
