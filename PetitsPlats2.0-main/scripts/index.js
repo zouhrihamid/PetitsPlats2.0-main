@@ -259,10 +259,6 @@ const ustensilSelectBox = createSelectBox("ustensils", "Ustensiles", ustensils);
 selectBoxContainer.appendChild(ingredientSelectBox);
 selectBoxContainer.appendChild(applianceSelectBox);
 selectBoxContainer.appendChild(ustensilSelectBox);
-
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
     filterRecipes(); 
     updateOptionsAndFilter();
@@ -296,9 +292,6 @@ function clearSearchInput() {
     removeIcon.style.display = 'none';
     filterRecipesBySearchInput();
 }
-
-
-
 
 //******************************************* Fonction pour afficher les recettes  ****************************************/
 function displayRecipes(recipesList) {
@@ -344,7 +337,7 @@ function filterRecipes() {
 
 //******************************************* Fonction pour filtrer les recettes selon l'entrée de recherche *********************************/
 function filterRecipesBySearchInput() {
-    console.log("Filtering recipes by search input..."); 
+    
     const searchValue = searchInput.value.toLowerCase();
     
     const filteredRecipes = recipes.filter(recipe => {
@@ -380,7 +373,6 @@ function updateSelectBoxes(filteredRecipes) {
     console.log(filteredIngredients);
     console.log (filteredAppliances);
     console.log(filteredUtensils);
-
     updateSelectBox(".ingredients", filteredIngredients);
     updateSelectBox(".Appareil", filteredAppliances);
     updateSelectBox(".ustensils", filteredUtensils);
@@ -394,8 +386,6 @@ function updateSelectBox(className, filteredItems) {
         option.style.display = filteredItems.has(label) ? "block" : "none";
     });
 }
-
-
 
 
 
