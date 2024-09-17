@@ -78,19 +78,14 @@ function updateSelectedDisplay() {
 
 //************************************  Fonction pour mettre à jour les options affichées dans les menus déroulants ************/
 function updateOptions(items, optionContainer, category) {
-    // Vérifier si la catégorie existe dans globalSelectedItems
+   
     if (!globalSelectedItems[category]) {
         
         return;
     }
-    // Nettoyer le conteneur d'options avant de le remplir
-    optionContainer.innerHTML = '';
-
-    // Assurer que les items sont en minuscules et uniques
-    const uniqueItems = [...new Set(items.map(item => item.toLowerCase()))];
+       optionContainer.innerHTML = '';
+       const uniqueItems = [...new Set(items.map(item => item.toLowerCase()))];
      uniqueItems.sort();
-
-    // Ajout de chaque option dans le conteneur
     uniqueItems.forEach(item => {
         const divOption = document.createElement("div");
         divOption.classList.add("option");
@@ -155,14 +150,18 @@ function updateOptionsAndFilter() {
     const appliancesContainer = document.querySelector(".Appareil .option-container");
     const ustensilsContainer = document.querySelector(".ustensils .option-container");
 
-    const allIngredients = [...new Set(recipes.flatMap(recipe => recipe.ingredients.map(ing => ing.ingredient.toLowerCase())))];
-    const allAppliances = [...new Set(recipes.map(recipe => recipe.appliance.toLowerCase()))];
-    const allUtensils = [...new Set(recipes.flatMap(recipe => recipe.ustensils.map(ust => ust.toLowerCase())))];
     
 
-    updateOptions(allIngredients, ingredientsContainer, "ingredients");
-    updateOptions(allAppliances, appliancesContainer, "appliances");
-    updateOptions(allUtensils, ustensilsContainer, "ustensils");
+    // // Fonction pour filtrer les formes plurielles si une version singulière existe
+    //     const ingredientsPlural = ingredients.filter((ingredient, self) => {
+    // // Si l'ingrédient sans 's' existe aussi dans la liste, on ne garde que la version avec 's'
+    //             const singularForm = ingredient.replace(/s$/, '');
+    // return !(self.includes(singularForm) && ingredient !== singularForm);
+    //     });
+
+    updateOptions(ingredients, ingredientsContainer, "ingredients");
+    updateOptions(appliances, appliancesContainer, "appliances");
+    updateOptions(ustensils, ustensilsContainer, "ustensils");
 
     filterRecipes();
 }
@@ -246,9 +245,10 @@ function createSelectBox(className, labelText, items) {
 
 
 //*********************** Initialisation des données***********************************************
-const ingredients = [...new Set(recipes.flatMap(recipe => recipe.ingredients.map(ing => ing.ingredient.toLowerCase())))];
-const appliances = [...new Set(recipes.map(recipe => recipe.appliance))];
-const ustensils = [...new Set(recipes.flatMap(recipe => recipe.ustensils))];
+
+const ingredients  = [...new Set(recipes.flatMap(recipe => recipe.ingredients.map(ing => ing.ingredient.toLowerCase())))];
+const appliances = [...new Set(recipes.map(recipe => recipe.appliance.toLowerCase()))];
+const ustensils = [...new Set(recipes.flatMap(recipe => recipe.ustensils.map(ust => ust.toLowerCase())))];
 
 const selectBoxContainer = document.querySelector(".select-box");
 
