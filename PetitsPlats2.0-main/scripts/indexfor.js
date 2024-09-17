@@ -21,24 +21,23 @@ const globalSelectedItems = {
 
 //********************  Fonction pour désactiver tous les menus déroulants ouverts *********************************/
 function deactivateAllDropdowns(container) {
-    // Sélectionner tous les conteneurs de menus déroulants
+   
     const allContainers = document.querySelectorAll('.select-box > div');
 
-    // Itérer sur tous les conteneurs avec une boucle for
     for (let i = 0; i < allContainers.length; i++) {
         const cont = allContainers[i];
         
-        // Si le conteneur n'est pas celui passé en argument
+       
         if (cont !== container) {
             cont.classList.remove("active");
             
-            // Désactiver la boîte d'options si elle existe
+            
             const options = cont.querySelector(".option-container");
             if (options) {
                 options.classList.remove("active");
             }
 
-            // Désactiver la boîte de recherche si elle existe
+            
             const searchBox = cont.querySelector(`[class*='search-box-']`);
             if (searchBox) {
                 searchBox.classList.remove("active");
@@ -53,13 +52,13 @@ function deactivateAllDropdowns(container) {
 function updateSelectedDisplay() {
     globalSelectedOptionContainer.innerHTML = ''; // Effacer les éléments existants
 
-    // Itérer sur les catégories de globalSelectedItems
+    
     const categories = Object.keys(globalSelectedItems);
     for (let i = 0; i < categories.length; i++) {
         const category = categories[i];
         const items = Array.from(globalSelectedItems[category]);
 
-        // Itérer sur les éléments de chaque catégorie
+        
         for (let j = 0; j < items.length; j++) {
             const item = items[j];
 
@@ -77,7 +76,7 @@ function updateSelectedDisplay() {
 
             removetag.addEventListener("click", () => {
                
-                // Supprimer l'élément de chaque catégorie dans globalSelectedItems
+                
                 for (let k = 0; k < categories.length; k++) {
                     const cat = categories[k];
                     globalSelectedItems[cat].delete(item);
@@ -108,19 +107,19 @@ function updateSelectedDisplay() {
 
 //************************************  Fonction pour mettre à jour les options affichées dans les menus déroulants   boucle for ************/
 function updateOptions(items, optionContainer, category) {
-    // Vérifier si la catégorie existe dans globalSelectedItems
+    
     if (!globalSelectedItems[category]) {
         return;
     }
 
-    // Nettoyer le conteneur d'options avant de le remplir
+   
     optionContainer.innerHTML = '';
 
-    // Assurer que les items sont en minuscules et uniques
+  
     const uniqueItems = [...new Set(items.map(item => item.toLowerCase()))];
     uniqueItems.sort();
 
-    // Utilisation de la boucle 'for' pour itérer sur les items uniques
+   
     for (let i = 0; i < uniqueItems.length; i++) {
         const item = uniqueItems[i];
 
@@ -140,17 +139,17 @@ function updateOptions(items, optionContainer, category) {
         divOption.appendChild(input);
         divOption.appendChild(label);
 
-        // Ajout du tag de suppression
+       
         const removetag = document.createElement("i");
         removetag.classList.add("fas", "fa-times", "removeOption");
         divOption.appendChild(removetag);
 
-        // Vérifier si l'item est sélectionné et mettre à jour l'apparence
+       
         if (globalSelectedItems[category].has(item)) {
             divOption.classList.add('selected');
         }
 
-        // Ajouter l'événement de sélection/désélection
+      
         divOption.addEventListener("click", () => {
             if (globalSelectedItems[category].has(item)) {
                 globalSelectedItems[category].delete(item);
@@ -163,7 +162,7 @@ function updateOptions(items, optionContainer, category) {
             updateOptionsAndFilter();
         });
 
-        // Ajouter l'événement de suppression via le tag de suppression
+      
         removetag.addEventListener("click", (e) => {
             e.stopPropagation();
             if (globalSelectedItems[category].has(item)) {
@@ -174,7 +173,7 @@ function updateOptions(items, optionContainer, category) {
             }
         });
 
-        // Ajouter l'option au conteneur
+      
         optionContainer.appendChild(divOption);
     }
 }
@@ -203,16 +202,16 @@ function updateOptionsAndFilter() {
 function filterOptions(searchValue, container) {
     const options = container.querySelectorAll(".option");
 
-    // Utilisation de la boucle 'for' pour itérer sur les options
+   
     for (let i = 0; i < options.length; i++) {
         const option = options[i];
         const label = option.querySelector("label").innerText.toLowerCase();
 
-        // Affiche ou cache l'option selon si elle contient la valeur recherchée
+        
         if (label.includes(searchValue)) {
-            option.style.display = "block";  // Afficher l'option si elle correspond
+            option.style.display = "block";  
         } else {
-            option.style.display = "none";   // Cacher l'option si elle ne correspond pas
+            option.style.display = "none";   
         }
     }
 }
@@ -433,16 +432,16 @@ function updateSelectBoxes(filteredRecipes) {
 function updateSelectBox(className, filteredItems) {
     const options = document.querySelectorAll(`${className} .option`);
     
-    // Utilisation de la boucle 'for' pour itérer sur les options
+   
     for (let i = 0; i < options.length; i++) {
         const option = options[i];
         const label = option.querySelector("label").innerText.toLowerCase();
         
-        // Vérifie si l'élément est présent dans les filteredItems
+       
         if (filteredItems.has(label)) {
-            option.style.display = "block";  // Affiche l'option si elle correspond
+            option.style.display = "block";  
         } else {
-            option.style.display = "none";   // Cache l'option si elle ne correspond pas
+            option.style.display = "none";   
         }
     }
 }
