@@ -23,6 +23,7 @@ const globalSelectedItems = {
 function deactivateAllDropdowns(container) {
    
     const allContainers = document.querySelectorAll('.select-box > div');
+    
 
     for (let i = 0; i < allContainers.length; i++) {
         const cont = allContainers[i];
@@ -30,14 +31,12 @@ function deactivateAllDropdowns(container) {
        
         if (cont !== container) {
             cont.classList.remove("active");
-            
-            
+                
             const options = cont.querySelector(".option-container");
             if (options) {
                 options.classList.remove("active");
             }
-
-            
+           
             const searchBox = cont.querySelector(`[class*='search-box-']`);
             if (searchBox) {
                 searchBox.classList.remove("active");
@@ -50,7 +49,7 @@ function deactivateAllDropdowns(container) {
 
 //******************* Fonction pour mettre à jour l'affichage des tags sélectionnés  ***************************/
 function updateSelectedDisplay() {
-    globalSelectedOptionContainer.innerHTML = ''; // Effacer les éléments existants
+    globalSelectedOptionContainer.innerHTML = ''; 
 
     
     const categories = Object.keys(globalSelectedItems);
@@ -183,15 +182,11 @@ function updateOptionsAndFilter() {
     const ingredientsContainer = document.querySelector(".ingredients .option-container");
     const appliancesContainer = document.querySelector(".Appareil .option-container");
     const ustensilsContainer = document.querySelector(".ustensils .option-container");
-
-    const allIngredients = [...new Set(recipes.flatMap(recipe => recipe.ingredients.map(ing => ing.ingredient.toLowerCase())))];
-    const allAppliances = [...new Set(recipes.map(recipe => recipe.appliance.toLowerCase()))];
-    const allUtensils = [...new Set(recipes.flatMap(recipe => recipe.ustensils.map(ust => ust.toLowerCase())))];
+   
     
-
-    updateOptions(allIngredients, ingredientsContainer, "ingredients");
-    updateOptions(allAppliances, appliancesContainer, "appliances");
-    updateOptions(allUtensils, ustensilsContainer, "ustensils");
+    updateOptions(ingredients, ingredientsContainer, "ingredients");
+    updateOptions(appliances, appliancesContainer, "appliances");
+    updateOptions(ustensils, ustensilsContainer, "ustensils");
 
     filterRecipes();
 }
@@ -287,8 +282,9 @@ function createSelectBox(className, labelText, items) {
 
 //*********************** Initialisation des données***********************************************
 const ingredients = [...new Set(recipes.flatMap(recipe => recipe.ingredients.map(ing => ing.ingredient.toLowerCase())))];
-const appliances = [...new Set(recipes.map(recipe => recipe.appliance))];
-const ustensils = [...new Set(recipes.flatMap(recipe => recipe.ustensils))];
+const appliances = [...new Set(recipes.map(recipe => recipe.appliance.toLowerCase()))];
+const ustensils = [...new Set(recipes.flatMap(recipe => recipe.ustensils.map(ust => ust.toLowerCase())))]
+
 
 const selectBoxContainer = document.querySelector(".select-box");
 
